@@ -7,3 +7,44 @@
 /* div{
     border: 1px solid rgb(225, 220, 220);
  }    */
+ img{
+	max-width: 100%;
+}
+.card{
+	position: relative;
+	overflow: hidden;
+	transition: all 0.3s ease-out;
+	background:radial-gradient(#111 50%, #000 100%);
+}
+
+.card img{
+	transform: scale(1);
+	transition: all 0.5s ease-out;
+}
+.card:hover img{
+	transform: scale(1.1) translateY(-0px); 
+	opacity: 0.4;
+}
+.card .description{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 15px;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	font-size: 18px;
+}
+.card .description h1{
+	font-weight: 700;
+	font-size: 1rem;
+	margin: 0 0 20px;
+	transform: translateY(50px);
+	opacity: 0;
+	transition: all 0.5s ease-out;
+
+}
+.card:hover .description h1{
+	opacity: 1;
+	transform: translateY(0);
+}
