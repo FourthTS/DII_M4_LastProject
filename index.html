@@ -24,11 +24,19 @@
   <body class="bg-[#151f2e]">
 
     <div id="navBarArea">
-      <div class="flex justify-center text-[#e74538]" id="navBar">
-        <div class="p-2 basis-20 text-center" id="homePage" onclick="homePageClick()">HOME</div>
-        <div class="p-2 basis-20 text-center" id="animePage">ANIME</div>
-        <div class="p-2 basis-20 text-center" id="mangaPage">MANGA</div>
-        <div class="p-2 basis-20 text-center" id="myListPage">MYLIST</div>
+      <div class="flex justify-between text-[#e74538] my-2 mx-0" id="navBar">
+        <div class="flex col-6 col-md-4 text-[1.5rem] md:text-[2rem]">
+          <p class="font-semibold tracking-wide ps-3 text-[#fff]">ANI<span class="text-[#e74538]">MA</span></p>
+        </div>
+        <div class="flex col-6 col-md-4 justify-evenly text-[0.7rem] xs:text-[0.8rem] sm:text-[0.9rem] md:text-[1rem]">
+          <div class="py-[0.7rem] basis-20 text-center rounded-md hover:bg-[#e74538] hover:text-[#151f2e] cursor-pointer " id="homePage" onclick="homePageClick()">HOME</div>
+          <div class="py-[0.7rem] basis-20 text-center rounded-md hover:bg-[#e74538] hover:text-[#151f2e] cursor-pointer " id="animePage">ANIME</div>
+          <div class="py-[0.7rem] basis-20 text-center rounded-md hover:bg-[#e74538] hover:text-[#151f2e] cursor-pointer " id="mangaPage">MANGA</div>
+          <div class="py-[0.7rem] basis-20 text-center rounded-md hover:bg-[#e74538] hover:text-[#151f2e] cursor-pointer " id="myListPage "onclick="myListClick()">MYLIST</div>
+        </div>
+        <div div class="flex col-0 col-md-4">
+
+        </div>
       </div>
     </div>
 
@@ -36,13 +44,13 @@
 
     </div>
       <!-- Main Area  -->
-      <div id="mainContentArea"> 
-      <div class="w-full h-auto min-h-[80vh]  flex justify-center bg-no-repeat bg-cover"style="background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url(&quot;https://images8.alphacoders.com/632/thumb-1920-632051.png&quot;) ; background-position: 50% center;">
+      <div class="w-100" id="mainContentArea"> 
+      <div class="w-full h-auto min-h-[80vh]  flex justify-center bg-no-repeat bg-cover bg-center" style="background-image: url(https://images8.alphacoders.com/632/thumb-1920-632051.png) ;">
         <div class="w-100 flex justify-center items-center content-center">
           <div class="px-[12px] w-full flex flex-wrap justify-center items-center content-center max-w-[100%]">
               <div class="w-full text-white text-center ">
-                <h2 class="text-5xl md:text-6xl font-semibold tracking-wide mb-2">Welcome to ANI<span class="text-[#e74538]">MAN</span></h2>
-                <p>website for Everyone who Loves <span class="text-[#e74538]">ANIME</span> and <span class="text-[#e74538]">MANGA</span></p>
+                <h2 class="text-4xl md:text-5xl font-semibold tracking-wide mb-2">Welcome to ANI<span class="text-[#e74538]">MA<span class="text-[#fff] text-[0.5rem] md:text-[0.9rem]"> WebSite</span></h2>
+                <p>website for Everyone who Loves <a class="text-[#e74538] cursor-pointer">ANIME</a> and <a class="text-[#e74538] cursor-pointer">MANGA</a></p>
               </div>
               <div class="relative w-full max-w-[500px] mt-3">
                 <form class="relative shadow-2xl">

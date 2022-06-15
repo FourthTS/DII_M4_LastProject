@@ -9,46 +9,43 @@ let mainContentArea = document.getElementById('mainContentArea')
 function hiddenPage() {
     mainContentArea.innerHTML = ''
     output.innerHTML = ''
+    navBarArea.innerHTML = ''
 }
-
-//------------------------------------------------- MY LIST Click ----------------------------------------------------------------------//
-
-document.getElementById('myListPage').addEventListener('click', (event) => {
-    output.innerHTML = ''
-    onLoad()
-})
 
 //-------------------------------------------------- search function & search page---------------------------------------------------//
 
-document.getElementById('searchInputButton').addEventListener('click', function (e) {
-    var searchInformation = document.getElementById('searchInputBox').value
-    console.log(searchInformation)
+function searchInformation() {
+    document.getElementById('searchInputButton').addEventListener('click', function (e) {
+        var searchInformation = document.getElementById('searchInputBox').value
+        console.log(searchInformation)
 
-    hiddenPage()
+        hiddenPage()
+        navBar()
 
-    fetch(`https://api.jikan.moe/v4/anime?q=${searchInformation}&&sfw`)
-        .then((response) => {
-            console.log('not found')
-            return response.json()
-        }).then((data => {
-            Search(data.data)
-        }))
+        fetch(`https://api.jikan.moe/v4/anime?q=${searchInformation}&&sfw`)
+            .then((response) => {
+                console.log('not found')
+                return response.json()
+            }).then((data => {
+                Search(data.data)
+            }))
 })
+
 function Search(dataList) {
     for (data of dataList) {
         addCard(data)
     }
 }
+}
+
 
 function addCard(movie) {
-
 
     let cardDiv = document.createElement('div')
     cardDiv.classList.add("col-6")
     cardDiv.classList.add("col-lg-2")
     cardDiv.classList.add("col-md-3")
     cardDiv.classList.add("col-sm-4")
-    
 
     let card = document.createElement('div')
     card.classList.add("card")
@@ -56,12 +53,12 @@ function addCard(movie) {
     card.classList.add("lg:h-[19rem]")
     card.classList.add("md:h-[17rem]")
     card.classList.add("sm:h-[15rem]")
-    card.classList.add("m-2")
-    
-    let img = document.createElement('img')
-    img.classList.add("card-img-top")
-    let imgUrl = movie.images.jpg.image_url
-    img.setAttribute('src', imgUrl)
+    card.classList.add("p-2")
+    card.classList.add("my-2")
+    card.classList.add("bg-no-repeat")
+    card.classList.add("bg-cover")
+    card.classList.add("bg-center")
+    card.setAttribute('style','background-image: url('+movie.images.jpg.large_image_url+')')
 
     let cardClass = document.createElement('div')
     cardClass.classList.add("description")
@@ -70,14 +67,22 @@ function addCard(movie) {
     let name = movie.title
     head.innerHTML = name
     cardClass.appendChild(head)
-    card.appendChild(img)
     card.appendChild(cardClass)
     cardDiv.appendChild(card)
     cardDiv.addEventListener('dblclick', function () {
         console.log(data)
         var r = confirm(`Add ${name} to MyList`);
         if (r == true) {
-            allData = { id, movie }
+            allData = { id, movie:{
+                "url": `${movie.url}`,
+                "image_url": `${movie.images.jpg.image_url}`,
+                "title": `${movie.title}`,
+                "synopsis":`${movie.synopsis}`,
+                "type": `${movie.type}`,
+                "episodes": `${movie.episodes}`,
+                "score":`${movie.score}`,
+                "rated": `${movie.rating}`
+            } }
             console.log(allData)
             addtoMylistToDB(allData)
 
@@ -107,63 +112,163 @@ function addtoMylistToDB(al) {
     })
 }
 // ----------------------------------- Mylist Page -----------------------------------------------------------------------------------//
+function myListClick() {
+    hiddenPage()
+    navBar()
+    onLoad()
+}
 
+function onLoad() {
+    fetch('https://se104-project-backend.du.r.appspot.com/movies/642110317')
+        .then((response) => {
+            return response.json()
+        }).then(data => {
+            MyList(data)
+        })
+}
+
+function MyList(dataList) {
+
+    for (data of dataList) {
+
+        addcardOnMylist(data)
+    }
+}
+
+//---------------------------------------------------------------- navBar ---------------------------------------------------------------//
 function navBar() {
     let navBar = document.createElement('div')
     navBar.classList.add("flex")
-    navBar.classList.add("justify-center")
+    navBar.classList.add("justify-between")
     navBar.classList.add("text-[#e74538]")
+    navBar.classList.add("my-2")
+    navBar.classList.add("mx-0")
     navBar.id="navBar"
 
-    let id = document.createElement('id')
-    id.classList.add("navBar")
+    let divStart = document.createElement('div')
+    divStart.classList.add("flex")
+    divStart.classList.add("col-2")
+    divStart.classList.add("col-md-3")
+
+    divStart.innerHTML = `<p class="text-2xl md:text-3xl font-semibold tracking-wide ps-3 text-[#fff]">ANI<span class="text-[#e74538]">MA</span></p>`
+
+    let divCenter = document.createElement('div')
+    divCenter.classList.add("flex")
+    divCenter.classList.add("col-5")
+    divCenter.classList.add("col-md-5")
+    divCenter.classList.add("justify-evenly")
+    divCenter.classList.add("text-[0.7rem]")
+    divCenter.classList.add("xs:text-[0.8rem]")
+    divCenter.classList.add("sm:text-[0.9rem]")
+    divCenter.classList.add("md:text-[1rem]")
 
     let divHome = document.createElement('div')
-    divHome.classList.add("p-2")
+    divHome.classList.add("py-[0.7rem]")
     divHome.classList.add("basis-20")
     divHome.classList.add("text-center")
+    divHome.classList.add("rounded-md")
+    divHome.classList.add("hover:bg-[#e74538]")
+    divHome.classList.add("hover:text-[#151f2e]")
+    divHome.classList.add("cursor-pointer")
+
     divHome.id="homePage"
+    divHome.setAttribute("onclick", "homePageClick()")
     divHome.innerText = 'HOME'
 
     let divAnime = document.createElement('div')
-    divAnime.classList.add("p-2")
+    divAnime.classList.add("py-[0.7rem]")
     divAnime.classList.add("basis-20")
     divAnime.classList.add("text-center")
+    divAnime.classList.add("rounded-md")
+    divAnime.classList.add("hover:bg-[#e74538]")
+    divAnime.classList.add("hover:text-[#151f2e]")
+    divAnime.classList.add("cursor-pointer")
+
     divAnime.id="animePage"
     divAnime.innerText = 'ANIME'
 
     let divManga = document.createElement('div')
-    divManga.classList.add("p-2")
+    divManga.classList.add("py-[0.7rem]")
     divManga.classList.add("basis-20")
     divManga.classList.add("text-center")
+    divManga.classList.add("rounded-md")
+    divManga.classList.add("hover:bg-[#e74538]")
+    divManga.classList.add("hover:text-[#151f2e]")
+    divManga.classList.add("cursor-pointer")
+
     divManga.id="mangaPage"
     divManga.innerText = 'MANGA'
 
     let divMyList = document.createElement('div')
-    divMyList.classList.add("p-2")
+    divMyList.classList.add("py-[0.7rem]")
     divMyList.classList.add("basis-20")
     divMyList.classList.add("text-center")
+    divMyList.classList.add("rounded-md")
+    divMyList.classList.add("hover:bg-[#e74538]")
+    divMyList.classList.add("hover:text-[#151f2e]")
+    divMyList.classList.add("cursor-pointer")
+
     divMyList.id="myListPage"
+    divMyList.setAttribute("onclick", "myListClick()")
     divMyList.innerText = 'MYLIST'
 
-    navBar.appendChild(divHome)
-    navBar.appendChild(divAnime)
-    navBar.appendChild(divManga)
-    navBar.appendChild(divManga)
-    navBar.appendChild(divMyList)
+    divCenter.appendChild(divHome)
+    divCenter.appendChild(divAnime)
+    divCenter.appendChild(divManga)
+    divCenter.appendChild(divManga)
+    divCenter.appendChild(divMyList)
+
+    
+    let divEnd = document.createElement('div')
+    divEnd.classList.add("flex")
+    divEnd.classList.add("col-5")
+    divEnd.classList.add("col-md-4")
+
+    divEnd.innerHTML = `<div class="relative w-full max-width-[25rem]">
+    <form class="relative shadow-2xl">
+      <div class="w-full">
+        <input class="w-full h-[32px] md:h-[38px] text-sm md:text-base px-[23px] leading-[46px] rounded-md" placeholder="search" type="text" id="searchInputBox">
+        <button class="bg-[#151f2e] hover:bg-[#e74538] absolute top-0 right-[-1px] inline-flex justify-center items-center content-center h-[32px] md:h-[38px] px-[26px] py-[10px] rounded-r-md" type="button" id="searchInputButton" onclick="searchInformation()">
+          <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fa-search" height="1rem" width="1rem">
+            <path fill="#f5f5f5" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
+          </svg>
+        </button>
+    </div>
+  </form>
+</div>`
+
+    navBar.appendChild(divStart)
+    navBar.appendChild(divCenter)
+    navBar.appendChild(divEnd)
 
     navBarArea.appendChild(navBar)
     
 }
+function navBarBefore(){
+    navBarArea.innerHTML=`<div class="flex justify-between text-[#e74538] my-2 mx-0" id="navBar">
+    <div class="flex col-6 col-md-4 text-[1.5rem] md:text-[2rem]">
+      <p class="font-semibold tracking-wide ps-3 text-[#fff]">ANI<span class="text-[#e74538]">MA</span></p>
+    </div>
+    <div class="flex col-6 col-md-4 justify-evenly text-[0.7rem] xs:text-[0.8rem] sm:text-[0.9rem] md:text-[1rem]">
+      <div class="py-[0.7rem] basis-20 text-center rounded-md hover:bg-[#e74538] hover:text-[#151f2e] cursor-pointer " id="homePage" onclick="homePageClick()">HOME</div>
+      <div class="py-[0.7rem] basis-20 text-center rounded-md hover:bg-[#e74538] hover:text-[#151f2e] cursor-pointer " id="animePage">ANIME</div>
+      <div class="py-[0.7rem] basis-20 text-center rounded-md hover:bg-[#e74538] hover:text-[#151f2e] cursor-pointer " id="mangaPage">MANGA</div>
+      <div class="py-[0.7rem] basis-20 text-center rounded-md hover:bg-[#e74538] hover:text-[#151f2e] cursor-pointer " id="myListPage "onclick="myListClick()">MYLIST</div>
+    </div>
+    <div div class="flex col-0 col-md-4">
+    </div>
+  </div>`
+}
 
 function homePageClick() {
     hiddenPage()
-    mainContentArea.innerHTML =`<div class="w-full h-auto min-h-[80vh]  flex justify-center bg-no-repeat bg-cover"style="background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url(&quot;https://images8.alphacoders.com/632/thumb-1920-632051.png&quot;) ; background-position: 50% center;">
+    navBarBefore()
+    mainContentArea.innerHTML =` <div class="w-full h-auto min-h-[80vh]  flex justify-center bg-no-repeat bg-cover bg-center" style="background-image: url(https://images8.alphacoders.com/632/thumb-1920-632051.png) ;">
     <div class="w-100 flex justify-center items-center content-center">
       <div class="px-[12px] w-full flex flex-wrap justify-center items-center content-center max-w-[100%]">
           <div class="w-full text-white text-center ">
-            <h2 class="text-5xl md:text-6xl font-semibold tracking-wide mb-2">Welcome to ANI<span class="text-[#e74538]">MAN</span></h2>
-            <p>website for Everyone who Loves <span class="text-[#e74538]">ANIME</span> and <span class="text-[#e74538]">MANGA</span></p>
+            <h2 class="text-4xl md:text-5xl font-semibold tracking-wide mb-2">Welcome to ANI<span class="text-[#e74538]">MA<span class="text-[#fff] text-[0.5rem] md:text-[0.9rem]"> WebSite</span></h2>
+            <p>website for Everyone who Loves <a class="text-[#e74538] cursor-pointer">ANIME</a> and <a class="text-[#e74538] cursor-pointer">MANGA</a></p>
           </div>
           <div class="relative w-full max-w-[500px] mt-3">
             <form class="relative shadow-2xl">
