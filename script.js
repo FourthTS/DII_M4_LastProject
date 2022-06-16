@@ -5,7 +5,8 @@ var id = 642110317
 let navBarArea = document.getElementById('navBarArea')
 let mainContentArea = document.getElementById('mainContentArea')
 let showResult = document.getElementById('showResultSearch')
-
+let subContentAreaHead = document.getElementById('subContentAreaHead')
+let ContentAreaBottom = document.getElementById('ContentAreaBottom')
 
 //------------------------------------------------------------ hidden page ---------------------------------------------------------------------//
 function hiddenPage() {
@@ -14,6 +15,7 @@ function hiddenPage() {
     navBarArea.innerHTML = ''
     showResult.innerHTML = ''
     output2.innerHTML = ''
+    ContentAreaBottom .innerHTML = ''
 }
 
 //-------------------------------------------------- search function & search page---------------------------------------------------//
@@ -268,33 +270,114 @@ function showDetail(data) {
     let divShowInformation = document.createElement('div')
     divShowInformation.classList.add("grid")
     divShowInformation.classList.add("auto-rows-min")
+    divShowInformation.classList.add("bg-slate-800")
+    divShowInformation.classList.add("p-3")
+    divShowInformation.classList.add("rounded-3")
+
+    let divButtonB = document.createElement('div')
+    divButtonB.classList.add('flex')
+    divButtonB.classList.add('flex-end')
+    divButtonB.classList.add('justify-end')
+    divButtonB.classList.add('content-end')
+
+    let buttonBack = document.createElement('button')
+    buttonBack.classList.add('h-[37px]')
+    buttonBack.classList.add('text-center')
+    buttonBack.classList.add('w-[3rem]')
+    buttonBack.classList.add('absolute')
+    buttonBack.classList.add('bg-lime-800')
+    buttonBack.classList.add('rounded-3')
+
+    buttonBack.innerHTML="Back"
+    buttonBack.addEventListener('click', function () {
+      myListClick()
+    })
+
+    divButtonB.appendChild(buttonBack)
 
     let head = document.createElement('p')
-    head.classList.add("my-4")
+    head.classList.add("mb-3")
     head.classList.add("text-[1.5rem]")
     head.classList.add("md:text-[2rem]")
     head.classList.add("font-bold")
     head.classList.add("text-white")
-    head.innerHTML = data.title
+
+    let link = document.createElement('a')
+    link.href = `${data.url}` 
+    link.classList.add("hover:text-[#e74538]")  
+    link.innerHTML = data.title
+
+    head.appendChild(link)
+
+    let score = document.createElement('p')
+    score.classList.add("text-[1rem]")
+    score.classList.add("md:text-[1.5rem]")
+    score.classList.add("text-[#e74538]")
+    score.innerHTML = "Score : "
+    
+    let scoreDetile = document.createElement('span')
+    scoreDetile.classList.add("text-white")
+    scoreDetile.classList.add("ps-[5rem]")
+    scoreDetile.classList.add("opacity-80")
+    scoreDetile.classList.add("text-[1rem]")
+    scoreDetile.classList.add("md:text-[1rem]")
+    scoreDetile.innerHTML = data.score
+
+    score.appendChild(scoreDetile)
+
+    let type = document.createElement('p')
+    type.classList.add("text-[1rem]")
+    type.classList.add("md:text-[1.5rem]")
+    type.classList.add("text-[#e74538]")
+    type.innerHTML = "Type : "
+    
+    let typeDetile = document.createElement('span')
+    typeDetile.classList.add("text-white")
+    typeDetile.classList.add("ps-[5rem]")
+    typeDetile.classList.add("opacity-80")
+    typeDetile.classList.add("text-[1rem]")
+    typeDetile.classList.add("md:text-[1rem]")
+    typeDetile.innerHTML = data.type
+
+    type.appendChild(typeDetile)
+
+    let rate = document.createElement('p')
+    rate.classList.add("text-[1rem]")
+    rate.classList.add("md:text-[1.5rem]")
+    rate.classList.add("text-[#e74538]")
+    rate.innerHTML = "Rate : "
+    
+    let rateDetile = document.createElement('span')
+    rateDetile.classList.add("text-white")
+    rateDetile.classList.add("ps-[5rem]")
+    rateDetile.classList.add("opacity-80")
+    rateDetile.classList.add("text-[1rem]")
+    rateDetile.classList.add("md:text-[1rem]")
+    rateDetile.innerHTML = data.rated
+
+    rate.appendChild(rateDetile)
 
     let synopsis = document.createElement('p')
     synopsis.classList.add("text-[1rem]")
     synopsis.classList.add("md:text-[1.5rem]")
-    synopsis.classList.add("font-bold")
     synopsis.classList.add("text-[#e74538]")
     synopsis.innerHTML = "Synopsis"
     
     let synopsisDetile = document.createElement('p')
     synopsisDetile.classList.add("text-white")
     synopsisDetile.classList.add("opacity-80")
-    synopsisDetile.classList.add("text-[12px]")
-    synopsisDetile.classList.add("text-[11px]")
-    synopsisDetile.classList.add("md:text-[1rem")
+    synopsisDetile.classList.add("text-[1rem]")
+    synopsisDetile.classList.add("md:text-[1rem]")
     synopsisDetile.innerHTML = data.synopsis
 
+    divShowInformation.appendChild(divButtonB)
     divShowInformation.appendChild(head)
+    divShowInformation.appendChild(score)
+    divShowInformation.appendChild(type)
+    divShowInformation.appendChild(rate)
     divShowInformation.appendChild(synopsis)
     divShowInformation.appendChild(synopsisDetile)
+    
 
     divShowDetail.appendChild(divCard)
     divShowDetail.appendChild(divShowInformation)
@@ -317,8 +400,8 @@ function allAnimePage() {
     
     <div class="carousel-inner w-[100%] h-[25rem]">
       
-      <div class="carousel-item active bg-no-repeat"style="height:25rem; background-image: url(https://pbs.twimg.com/media/EPERK6XWoAAiraW.jpg); background-position: center; background-size: cover; ">
-        <div class="rox justify-content-center align-item-center position-absolute top-50 start-50 translate-middle">
+      <div class="carousel-item active bg-no-repeat"style="height:25rem; background-image: url(https://pbs.twimg.com/media/EPERK6XWoAAiraW.jpg); background-position: center; background-size: cover;">
+        <div class="rox justify-content-center align-item-center position-absolute top-50 start-50 translate-middle"  onclick="countTAnimeTContent()">
           <h5 class="text-center font-bold text-[2rem]">Top <span class="font-bold text-[2rem] text-[#e74538]">ANIME</span></h5>
           <p  class="text-center text-[1rem]">Ranking fo ANIME </p>
         </div>
@@ -326,8 +409,8 @@ function allAnimePage() {
 
 
       <div class="carousel-item bg-no-repeat" style="height:25rem; background-image: url(https://www.online-station.net/wp-content/uploads/2021/12/02suzumenotojimari-00a.jpg); background-position: center; background-size: cover;>
-        <div class="d-flex justify-content-center align-item-center">
-          <div class="rox justify-content-center align-item-center position-absolute top-50 start-50 translate-middle">
+        <div class="d-flex justify-content-center align-item-center" onclick="countNAnimeContent()">
+          <div class="rox justify-content-center align-item-center position-absolute top-50 start-50 translate-middle" onclick="countNAnimeContent()">
               <h5 class="text-center font-bold text-[2rem]">ANIME <span class="font-bold text-[2rem] text-[#e74538]">UPCOMING</span></h5>
               <p class="text-center text-[1rem]">New Anime Coming Soon.</p>
           </div>
@@ -336,7 +419,7 @@ function allAnimePage() {
 
 
       <div class="carousel-item bg-no-repeat" style="height:25rem; background-image: url(https://images8.alphacoders.com/667/thumb-1920-667873.png); background-position: center; background-size: cover;>
-        <div class="d-flex justify-content-center align-item-center">
+        <div class="d-flex justify-content-center align-item-center" onclick="countAAnimeContent()">
           <div class="rox justify-content-center align-item-center position-absolute top-50 start-50 translate-middle">
               <h5 class="text-center font-bold text-[2rem]">ANIME <span class="font-bold text-[2rem] text-[#e74538]">AIRING</span></h5>
               <p class="text-center text-[1rem]">All Anime Airing To Day</p>
@@ -354,17 +437,46 @@ function allAnimePage() {
       <span class="visually-hidden">Next</span>
     </button>
   </div>`
-  subAllAnimeContent ()
+  countAnimeContent()
 }
+// -------------------------------------------------------------- count anime page content ----------------------------------------------//
+let count = 1
+
+function countAnimeContent(){
+  output2.innerHTML=''
+  subAllAnimeContent(count)
+}
+function nextPageClick(){
+  count +=1 
+  output2.innerHTML=''
+  subAllAnimeContent(count)
+}
+function backPageClick(){
+  count -=1 
+  output2.innerHTML=''
+  subAllAnimeContent(count)
+}
+
 //--------------------------------------------------------------- All Anime page Sub content --------------------------------------------//
-function subAllAnimeContent (){
-  fetch(`https://api.jikan.moe/v4/anime`)
+function subAllAnimeContent (page){
+  output.innerHTML = `<div class="text-[2rem] font-bold text-[#e74538]">All ANIME</div>`;
+
+  ContentAreaBottom.innerHTML = `<div class="flex justify-end my-3 ">
+                                  <div class="flex justify-evenly border border-indigo-600 rounded-3">
+                                    <div class="text-[#e74538] p-2 mx-2 cursor-pointer" onclick="backPageClick()"> << Prev </div>
+                                      <p class="text-[#e74538] p-2">${page}</p>
+                                    <div class="text-[#e74538] p-2 mx-2 cursor-pointer" onclick="nextPageClick()">Next >></div>
+                                  </div>
+                                </div>`
+
+  fetch(`https://api.jikan.moe/v4/anime?page=${page}&&sfw`)
             .then((response) => {
                 return response.json()
             }).then((data => {
                 ListInformation(data.data)
             }))
 }
+
 function  ListInformation(dataList) {
     for (data of dataList) {
         addCard2(data)
@@ -411,6 +523,268 @@ function addCard2(movie) {
     })
     output2.appendChild(cardDiv)
 }
+// -------------------------------------------------------------- count Top anime page content ----------------------------------------------//
+let countT = 1
+
+function countTAnimeTContent(){
+  hiddenPage()
+  navBar()
+  TopAnimeContent(countT)
+}
+function nextPageTClick(){
+  countT +=1 
+  output2.innerHTML=''
+  TopAnimeContent(countT)
+}
+function backPageTClick(){
+  countT -=1 
+  output2.innerHTML=''
+  TopAnimeContent(countT)
+}
+
+//--------------------------------------------------------------- TOP Anime page Sub content --------------------------------------------//
+function TopAnimeContent (page){
+  output.innerHTML = `<div class="text-[2rem] font-bold text-[#e74538]">TOP ANIME</div>`;
+
+  ContentAreaBottom.innerHTML = `<div class="flex justify-end my-3 ">
+                                  <div class="flex justify-evenly border border-indigo-600 rounded-3">
+                                    <div class="text-[#e74538] p-2 mx-2 cursor-pointer" onclick="backPageTClick()"> << Prev </div>
+                                      <p class="text-[#e74538] p-2">${page}</p>
+                                    <div class="text-[#e74538] p-2 mx-2 cursor-pointer" onclick="nextPageTClick()">Next >></div>
+                                  </div>
+                                </div>`
+
+  fetch(`https://api.jikan.moe/v4/top/anime?page=${page}&&sfw`)
+            .then((response) => {
+                return response.json()
+            }).then((data => {
+                ListInformation(data.data)
+            }))
+}
+
+function  ListInformation(dataList) {
+    for (data of dataList) {
+        addCard2(data)
+    }
+}
+
+function addCard2(movie) {
+
+    let cardDiv = document.createElement('div')
+    cardDiv.classList.add("col-6")
+    cardDiv.classList.add("col-lg-2")
+    cardDiv.classList.add("col-md-3")
+    cardDiv.classList.add("col-sm-4")
+
+    let card = document.createElement('div')
+    card.classList.add("card")
+    card.classList.add("h-[13rem]")
+    card.classList.add("lg:h-[19rem]")
+    card.classList.add("md:h-[17rem]")
+    card.classList.add("sm:h-[15rem]")
+    card.classList.add("p-2")
+    card.classList.add("my-2")
+    card.classList.add("bg-no-repeat")
+    card.classList.add("bg-cover")
+    card.classList.add("bg-center")
+    card.setAttribute('style','background-image: url('+movie.images.jpg.large_image_url+')')
+
+    let cardClass = document.createElement('div')
+    cardClass.classList.add("description")
+    let head = document.createElement('p')
+    head.classList.add("card-title")
+    let name = movie.title
+    head.innerHTML = name
+    cardClass.appendChild(head)
+    
+
+    card.appendChild(cardClass)
+    cardDiv.appendChild(card)
+    cardDiv.addEventListener('click', function () {
+      hiddenPage()
+      navBar()
+      showDetail2(movie)
+        
+    })
+    output2.appendChild(cardDiv)
+}
+// -------------------------------------------------------------- count New anime page content ----------------------------------------------//
+let countN = 1
+
+function countNAnimeContent(){
+  hiddenPage()
+  navBar()
+  NewAnimeContent(countN)
+}
+function nextPageNClick(){
+  countN +=1 
+  if(countN > 2){
+    countN += (countN*0) + 2
+  }
+  output2.innerHTML=''
+  NewAnimeContent(countN)
+}
+function backPageNClick(){
+  countN -=1 
+  if(countN <= 1){
+    countN += (countN*0) + 1
+  }
+  output2.innerHTML=''
+  NewAnimeContent(countN)
+}
+
+//---------------------------------------------------------------- New Anime page Sub content --------------------------------------------//
+function NewAnimeContent (page){
+  output.innerHTML = `<div class="text-[2rem] font-bold text-[#e74538]">ANIME UP COMING</div>`;
+
+  ContentAreaBottom.innerHTML = `<div class="flex justify-end my-3 ">
+                                  <div class="flex justify-evenly border border-indigo-600 rounded-3">
+                                    <div class="text-[#e74538] p-2 mx-2 cursor-pointer" onclick="backPageNClick()"> << Prev </div>
+                                      <p class="text-[#e74538] p-2">${page}</p>
+                                    <div class="text-[#e74538] p-2 mx-2 cursor-pointer" onclick="nextPageNClick()">Next >></div>
+                                  </div>
+                                </div>`
+
+  fetch(`https://api.jikan.moe/v4/anime?type=tv&&status=upcoming&&rating=pg13&&order_by=popularity&&start_date=2022-06&&page=${page}&&sfw`)
+            .then((response) => {
+                return response.json()
+            }).then((data => {
+                ListInformation(data.data)
+            }))
+}
+
+function  ListInformation(dataList) {
+    for (data of dataList) {
+        addCard2(data)
+    }
+}
+
+function addCard2(movie) {
+
+    let cardDiv = document.createElement('div')
+    cardDiv.classList.add("col-6")
+    cardDiv.classList.add("col-lg-2")
+    cardDiv.classList.add("col-md-3")
+    cardDiv.classList.add("col-sm-4")
+
+    let card = document.createElement('div')
+    card.classList.add("card")
+    card.classList.add("h-[13rem]")
+    card.classList.add("lg:h-[19rem]")
+    card.classList.add("md:h-[17rem]")
+    card.classList.add("sm:h-[15rem]")
+    card.classList.add("p-2")
+    card.classList.add("my-2")
+    card.classList.add("bg-no-repeat")
+    card.classList.add("bg-cover")
+    card.classList.add("bg-center")
+    card.setAttribute('style','background-image: url('+movie.images.jpg.large_image_url+')')
+
+    let cardClass = document.createElement('div')
+    cardClass.classList.add("description")
+    let head = document.createElement('p')
+    head.classList.add("card-title")
+    let name = movie.title
+    head.innerHTML = name
+    cardClass.appendChild(head)
+    
+
+    card.appendChild(cardClass)
+    cardDiv.appendChild(card)
+    cardDiv.addEventListener('click', function () {
+      hiddenPage()
+      navBar()
+      showDetail2(movie)
+        
+    })
+    output2.appendChild(cardDiv)
+}
+// -------------------------------------------------------------- count Airing anime page content ----------------------------------------------//
+let countA = 1
+
+function countAAnimeContent(){
+  hiddenPage()
+  navBar()
+  AiringAnimeContent(countA)
+}
+function nextPageAClick(){
+  countA +=1 
+  output2.innerHTML=''
+  AiringAnimeContent(countA)
+}
+function backPageAClick(){
+  countA -=1 
+  output2.innerHTML=''
+  AiringAnimeContent(countA)
+}
+
+//---------------------------------------------------------------- New Anime page Sub content --------------------------------------------//
+function AiringAnimeContent(page){
+  output.innerHTML = `<div class="text-[2rem] font-bold text-[#e74538]">ANIME AIRING</div>`;
+
+  ContentAreaBottom.innerHTML = `<div class="flex justify-end my-3 ">
+                                  <div class="flex justify-evenly border border-indigo-600 rounded-3">
+                                    <div class="text-[#e74538] p-2 mx-2 cursor-pointer" onclick="backPageAClick()"> << Prev </div>
+                                      <p class="text-[#e74538] p-2">${page}</p>
+                                    <div class="text-[#e74538] p-2 mx-2 cursor-pointer" onclick="nextPageAClick()">Next >></div>
+                                  </div>
+                                </div>`
+
+  fetch(`https://api.jikan.moe/v4/anime?status=airing&&page=${page}&&sfw`)
+            .then((response) => {
+                return response.json()
+            }).then((data => {
+                ListInformation(data.data)
+            }))
+}
+
+function  ListInformation(dataList) {
+    for (data of dataList) {
+        addCard2(data)
+    }
+}
+
+function addCard2(movie) {
+
+    let cardDiv = document.createElement('div')
+    cardDiv.classList.add("col-6")
+    cardDiv.classList.add("col-lg-2")
+    cardDiv.classList.add("col-md-3")
+    cardDiv.classList.add("col-sm-4")
+
+    let card = document.createElement('div')
+    card.classList.add("card")
+    card.classList.add("h-[13rem]")
+    card.classList.add("lg:h-[19rem]")
+    card.classList.add("md:h-[17rem]")
+    card.classList.add("sm:h-[15rem]")
+    card.classList.add("p-2")
+    card.classList.add("my-2")
+    card.classList.add("bg-no-repeat")
+    card.classList.add("bg-cover")
+    card.classList.add("bg-center")
+    card.setAttribute('style','background-image: url('+movie.images.jpg.large_image_url+')')
+
+    let cardClass = document.createElement('div')
+    cardClass.classList.add("description")
+    let head = document.createElement('p')
+    head.classList.add("card-title")
+    let name = movie.title
+    head.innerHTML = name
+    cardClass.appendChild(head)
+    
+
+    card.appendChild(cardClass)
+    cardDiv.appendChild(card)
+    cardDiv.addEventListener('click', function () {
+      hiddenPage()
+      navBar()
+      showDetail2(movie)
+        
+    })
+    output2.appendChild(cardDiv)
+}
+
 
 //----------------------------------------------------------------shoe detail 2----------------------------------------------------------//
 function showDetail2(data) {
@@ -487,39 +861,121 @@ function showDetail2(data) {
   divCard.appendChild(divButton)
 
   let divShowInformation = document.createElement('div')
-  divShowInformation.classList.add("grid")
-  divShowInformation.classList.add("auto-rows-min")
+    divShowInformation.classList.add("grid")
+    divShowInformation.classList.add("auto-rows-min")
+    divShowInformation.classList.add("bg-slate-800")
+    divShowInformation.classList.add("p-3")
+    divShowInformation.classList.add("rounded-3")
 
-  let head = document.createElement('p')
-  head.classList.add("my-4")
-  head.classList.add("text-[1.5rem]")
-  head.classList.add("md:text-[2rem]")
-  head.classList.add("font-bold")
-  head.classList.add("text-white")
-  head.innerHTML = data.title
+    let divButtonB = document.createElement('div')
+    divButtonB.classList.add('flex')
+    divButtonB.classList.add('flex-end')
+    divButtonB.classList.add('justify-end')
+    divButtonB.classList.add('content-end')
 
-  let synopsis = document.createElement('p')
-  synopsis.classList.add("text-[1rem]")
-  synopsis.classList.add("md:text-[1.5rem]")
-  synopsis.classList.add("font-bold")
-  synopsis.classList.add("text-[#e74538]")
-  synopsis.innerHTML = "Synopsis"
-  
-  let synopsisDetile = document.createElement('p')
-  synopsisDetile.classList.add("text-white")
-  synopsisDetile.classList.add("opacity-80")
-  synopsisDetile.classList.add("text-[12px]")
-  synopsisDetile.classList.add("text-[11px]")
-  synopsisDetile.classList.add("md:text-[1rem")
-  synopsisDetile.innerHTML = data.synopsis
+    let buttonBack = document.createElement('button')
+    buttonBack.classList.add('h-[37px]')
+    buttonBack.classList.add('text-center')
+    buttonBack.classList.add('w-[3rem]')
+    buttonBack.classList.add('absolute')
+    buttonBack.classList.add('bg-lime-800')
+    buttonBack.classList.add('rounded-3')
 
-  divShowInformation.appendChild(head)
-  divShowInformation.appendChild(synopsis)
-  divShowInformation.appendChild(synopsisDetile)
+    buttonBack.innerHTML="Back"
+    buttonBack.addEventListener('click', function () {
+      allAnimePage()
+    })
 
-  divShowDetail.appendChild(divCard)
-  divShowDetail.appendChild(divShowInformation)
-  output.appendChild(divShowDetail)
+    divButtonB.appendChild(buttonBack)
+
+    let head = document.createElement('p')
+    head.classList.add("mb-3")
+    head.classList.add("text-[1.5rem]")
+    head.classList.add("md:text-[2rem]")
+    head.classList.add("font-bold")
+    head.classList.add("text-white")
+
+    let link = document.createElement('a')
+    link.href = `${data.url}` 
+    link.classList.add("hover:text-[#e74538]")  
+    link.innerHTML = data.title
+
+    head.appendChild(link)
+
+    let score = document.createElement('p')
+    score.classList.add("text-[1rem]")
+    score.classList.add("md:text-[1.5rem]")
+    score.classList.add("text-[#e74538]")
+    score.innerHTML = "Score : "
+    
+    let scoreDetile = document.createElement('span')
+    scoreDetile.classList.add("text-white")
+    scoreDetile.classList.add("ps-[5rem]")
+    scoreDetile.classList.add("opacity-80")
+    scoreDetile.classList.add("text-[1rem]")
+    scoreDetile.classList.add("md:text-[1rem]")
+    scoreDetile.innerHTML = data.score
+
+    score.appendChild(scoreDetile)
+
+    let type = document.createElement('p')
+    type.classList.add("text-[1rem]")
+    type.classList.add("md:text-[1.5rem]")
+    type.classList.add("text-[#e74538]")
+    type.innerHTML = "Type : "
+    
+    let typeDetile = document.createElement('span')
+    typeDetile.classList.add("text-white")
+    typeDetile.classList.add("ps-[5rem]")
+    typeDetile.classList.add("opacity-80")
+    typeDetile.classList.add("text-[1rem]")
+    typeDetile.classList.add("md:text-[1rem]")
+    typeDetile.innerHTML = data.type
+
+    type.appendChild(typeDetile)
+
+    let rate = document.createElement('p')
+    rate.classList.add("text-[1rem]")
+    rate.classList.add("md:text-[1.5rem]")
+    rate.classList.add("text-[#e74538]")
+    rate.innerHTML = "Rate : "
+    
+    let rateDetile = document.createElement('span')
+    rateDetile.classList.add("text-white")
+    rateDetile.classList.add("ps-[5rem]")
+    rateDetile.classList.add("opacity-80")
+    rateDetile.classList.add("text-[1rem]")
+    rateDetile.classList.add("md:text-[1rem]")
+    rateDetile.innerHTML = data.rating
+
+    rate.appendChild(rateDetile)
+
+    let synopsis = document.createElement('p')
+    synopsis.classList.add("text-[1rem]")
+    synopsis.classList.add("md:text-[1.5rem]")
+    synopsis.classList.add("text-[#e74538]")
+    synopsis.innerHTML = "Synopsis"
+    
+    let synopsisDetile = document.createElement('p')
+    synopsisDetile.classList.add("text-white")
+    synopsisDetile.classList.add("opacity-80")
+    synopsisDetile.classList.add("text-[1rem]")
+    synopsisDetile.classList.add("md:text-[1rem]")
+    synopsisDetile.innerHTML = data.synopsis
+
+    divShowInformation.appendChild(divButtonB)
+    divShowInformation.appendChild(head)
+    divShowInformation.appendChild(score)
+    divShowInformation.appendChild(type)
+    divShowInformation.appendChild(rate)
+    divShowInformation.appendChild(synopsis)
+    divShowInformation.appendChild(synopsisDetile)
+    
+
+    divShowDetail.appendChild(divCard)
+    divShowDetail.appendChild(divShowInformation)
+    output.appendChild(divShowDetail)
+
 }
 //---------------------------------------------------------------- navBar ---------------------------------------------------------------//
 function navBar() {
