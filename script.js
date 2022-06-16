@@ -718,7 +718,7 @@ function backPageAClick(){
   AiringAnimeContent(countA)
 }
 
-//---------------------------------------------------------------- New Anime page Sub content --------------------------------------------//
+//---------------------------------------------------------------- Airing Anime page Sub content --------------------------------------------//
 function AiringAnimeContent(page){
   output.innerHTML = `<div class="text-[2rem] font-bold text-[#e74538]">ANIME AIRING</div>`;
 
@@ -730,7 +730,7 @@ function AiringAnimeContent(page){
                                   </div>
                                 </div>`
 
-  fetch(`https://api.jikan.moe/v4/anime?status=airing&&page=${page}&&sfw`)
+  fetch(`https://api.jikan.moe/v4/anime?status=airing&&page=${page}&&sfw&&rating=pg13`)
             .then((response) => {
                 return response.json()
             }).then((data => {
