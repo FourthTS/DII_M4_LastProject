@@ -955,7 +955,7 @@ function showDetail2(data) {
     synopsis.classList.add("md:text-[1.5rem]")
     synopsis.classList.add("text-[#e74538]")
     synopsis.innerHTML = "Synopsis"
-    
+      
     let synopsisDetile = document.createElement('p')
     synopsisDetile.classList.add("text-white")
     synopsisDetile.classList.add("opacity-80")
