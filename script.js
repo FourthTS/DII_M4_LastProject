@@ -568,6 +568,7 @@ function  ListInformation(dataList) {
     }
 }
 
+
 function addCard2(movie) {
 
     let cardDiv = document.createElement('div')
